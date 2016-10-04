@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="CarSaleManagerSystem.Bean.CarSFX" table="sfx">
+        <composite-id>
+            <key-property name="sfx" column="sfx"/>
+            <key-property name="brand" column="brand" length="64"/>
+            <key-property name="garage" column="garage_brand" length="64"/>
+        </composite-id>
+        <property name="valid" column="valid" type="java.lang.String" length="1"/>
+        <!--<set name="carTypeSet" table="vehicle_type" inverse="true">-->
+            <!--<key column="sfx" not-null="true"/>-->
+            <!--<one-to-many class="CarSaleManagerSystem.Bean.CarType"/>-->
+        <!--</set>-->
+    </class>
+</hibernate-mapping>

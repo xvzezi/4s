@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="CarSaleManagerSystem.Bean.MarketActivity" table="market_activity">
+        <id name="id" type="int">
+            <generator class="increment"/>
+        </id>
+        <property name="theme" type="java.lang.String"/>
+        <property name="target" type="java.lang.String"/>
+        <property name="start" type="java.util.Date"/>
+        <property name="end" type="java.util.Date"/>
+        <property name="fee" type="java.lang.Integer"/>
+        <property name="in_onSale" type="java.lang.String"/>
+        <property name="out_onSale" type="java.lang.String"/>
+        <property name="carType" type="java.lang.String"/>
+        <property name="plan_invite" type="java.lang.Integer"/>
+        <property name="plan_nature" type="java.lang.Integer"/>
+        <property name="plan_trans" type="java.lang.Integer"/>
+        <property name="fact_invite" type="java.lang.Integer"/>
+        <property name="fact_nature" type="java.lang.Integer"/>
+        <property name="fact_trnas" type="java.lang.Integer"/>
+        <property name="con_opt" type="java.lang.String"/>
+        <property name="con_neg" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

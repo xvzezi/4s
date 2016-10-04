@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="CarSaleManagerSystem.Bean.GiftBrand" table="gift_brand">
+        <composite-id>
+            <key-property name="giftBrand" column="gift_brand" length="64"/>
+            <key-property name="type" column="type" length="64"/>
+        </composite-id>
+        <property name="valid" column="valid" type="java.lang.String" length="1"/>
+    </class>
+</hibernate-mapping>
