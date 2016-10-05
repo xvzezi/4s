@@ -25,6 +25,8 @@ public class User {
 
     private String valid;
 
+    private int salary;
+
 //    protected Set<Role> roleSet = new HashSet<Role>();
 //    protected Set<Order>orderSet = new HashSet<Order>();
 
@@ -141,7 +143,17 @@ public class User {
         this.type = type;
     }
 
-//    public Set<Role> getRoleSet() {
+    public int getSalary()
+    {
+        return salary;
+    }
+
+    public void setSalary(int salary)
+    {
+        this.salary = salary;
+    }
+
+    //    public Set<Role> getRoleSet() {
 //        return roleSet;
 //    }
 //
