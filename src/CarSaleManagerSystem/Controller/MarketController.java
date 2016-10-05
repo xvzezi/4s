@@ -32,7 +32,7 @@ public class MarketController
 	 *      > data on the web page.
 	 * @return A Basic Web Page
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView getShowPage()
 	{
 		return new ModelAndView("/Market/activity");
