@@ -42,5 +42,8 @@
                 <mapping resource="SalesPlan.hbm.xml"/>
                 <mapping resource="MarketActivity.hbm.xml"/>
                 <mapping resource="Bean.hbm.xml"/>
+                <mapping resource="SoleServiceType.hbm.xml"/>
+                <mapping resource="SoleServiceType.hbm.xml"/>
+                <mapping resource="SoleServiceType.hbm.xml"/>
         </session-factory>
 </hibernate-configuration>

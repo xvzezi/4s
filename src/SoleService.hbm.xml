@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="CarSaleManagerSystem.Bean.SoleService" table="sole_service">
+        <id name="sole_service_id"/>
+        <property name="car_class" type="java.lang.String"/>
+        <property name="car_id" type="java.lang.String"/>
+        <property name="car_type" type="java.lang.String"/>
+        <property name="lease_start" type="java.util.Date"/>
+        <property name="lease_end" type="java.util.Date"/>
+        <property name="rebate" type="java.lang.Integer"/>
+        <property name="profit" type="java.lang.Integer"/>
+    </class>
+</hibernate-mapping>
