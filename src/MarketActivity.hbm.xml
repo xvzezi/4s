@@ -21,7 +21,7 @@
         <property name="plan_trans" type="java.lang.Integer"/>
         <property name="fact_invite" type="java.lang.Integer"/>
         <property name="fact_nature" type="java.lang.Integer"/>
-        <property name="fact_trnas" type="java.lang.Integer"/>
+        <property name="fact_trans" type="java.lang.Integer"/>
         <property name="con_opt" type="java.lang.String"/>
         <property name="con_neg" type="java.lang.String"/>
     </class>

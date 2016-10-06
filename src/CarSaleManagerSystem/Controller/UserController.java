@@ -11,9 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by HFQ on 2016/8/5.
@@ -326,4 +324,192 @@ public class UserController {
 
         return modelAndView;
     }
+
+
+    /*****************************************************Bean System*************************************************/
+	/**
+     * Mother Page Of Bean Below
+     *      > We get several Object inside the mother page which could be used in some situation
+     *      >   beans   --  the main content of a user(stuff)'s bean
+     *      >   theme   --  the theme of the current page, to show you are using different function
+     *      >   fail    --  when failed a operation, this object will be set with an error string
+     *      > p.s.  You may have to show the name of a user, try to use other URL to get the info
+     * @return
+     */
+    @RequestMapping(value = "/bean")
+    public ModelAndView getBeanHomePage()
+    {
+        return new ModelAndView("User/bean");
+    }
+
+	/**
+     * Get the beans of this month
+     *      > To use this method, you do not have to set any parameter.
+     *      > You will get Objects like beans & theme to use in the
+     *      > jsp file for you to present.
+     * @return
+     */
+    @RequestMapping(value = "/bean/thisMonth", method = RequestMethod.GET)
+    public ModelAndView getBeanThisMonth()
+    {
+        ModelAndView modelAndView = getBeanHomePage();
+        modelAndView.addObject("beans", userService.getCurrentMonth());
+        modelAndView.addObject("theme", "This Month");
+        return modelAndView;
+    }
+
+	/**
+     * Get the beans of a user on a specified month
+     *      > To use this method, you will have to set several parameter
+     *      >   user_id --  the id of the user
+     *      >   year    --  the year you wanted
+     *      >   month   --  the month you wanted
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/bean/userWithDate", method = RequestMethod.GET)
+    public ModelAndView getBeanUserWithDate(HttpServletRequest request)
+    {
+        // get basic page
+        ModelAndView modelAndView = getBeanHomePage();
+
+        // get parameter
+        Integer year = Integer.getInteger(request.getParameter("year"));
+        Integer month = Integer.getInteger(request.getParameter("month"));
+        if(year == null || month == null || month > 12 || month < 1)
+        {
+            modelAndView.addObject("fail", "year or month not correctly specified");
+            return modelAndView;
+        }
+
+        Integer user_id = Integer.getInteger(request.getParameter("user_id"));
+        if(user_id == null)
+        {
+            modelAndView.addObject("fail", "user id not correctly specified");
+            return modelAndView;
+        }
+
+        // turn it into date
+        Date date = new Date();
+        date.setYear(year);
+        date.setMonth(month - 1);
+
+        // get the model
+        modelAndView.addObject("beans", userService.getByUserWithDate(user_id, date));
+        modelAndView.addObject("theme", "On " + year + "-" + month);
+        return modelAndView;
+    }
+
+	/**
+     * Get the beans of a brand on specified date
+     *      > To use this method, you have to set several parameter
+     *      >   brand   --  the brand of a car
+     *      >   year    --  the year you wanted
+     *      >   month   --  the month you wanted
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/bean/brandWithDate", method = RequestMethod.GET)
+    public ModelAndView getBeanBrandWithDate(HttpServletRequest request)
+    {
+        // get the mother page
+        ModelAndView modelAndView = getBeanHomePage();
+
+        // get the parameter
+        String brand = request.getParameter("brand");
+        if(brand == null)
+        {
+            modelAndView.addObject("fail", "brand not correctly specified");
+        }
+        Integer year = Integer.getInteger(request.getParameter("year"));
+        Integer month = Integer.getInteger(request.getParameter("month"));
+        if(year == null || month == null || month > 12 || month < 1)
+        {
+            modelAndView.addObject("fail", "year or month not correctly specified");
+            return modelAndView;
+        }
+
+        // build the date
+        Date date = new Date();
+        date.setYear(year);
+        date.setMonth(month - 1);
+
+        // get the model
+        modelAndView.addObject("beans", userService.getByBrandWithDate(brand, date));
+        modelAndView.addObject("theme", brand + " on " + year + "-" + month);
+        return modelAndView;
+    }
+
+	/**
+     * Create a bean table Of a User on this month
+     *      > This is a RESTful API, you will have to set several parameter,
+     *      > and be ready to receive a json string. Pay attention to method.
+     *      >   brand   --  the brand you want to set
+     *      >   user_id --  the user you want to specified
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/bean/createThisMonth", method = RequestMethod.POST)
+    @ResponseBody
+    public String createThisMonth(HttpServletRequest request)
+    {
+        // get the parameter
+        String brand = request.getParameter("brand");
+        if(brand == null)
+        {
+            return "fail " + "brand not correctly specified";
+        }
+
+        Integer user_id = Integer.getInteger(request.getParameter("user_id"));
+        if(user_id == null)
+        {
+            return "fail " + "user id not correctly specified";
+        }
+
+        // get the model
+        return userService.createBeanOnUser(user_id, brand);
+    }
+
+	/**
+     * Not implemented
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/bean/createAll", method = RequestMethod.POST)
+    @ResponseBody
+    public String createBeanAll(HttpServletRequest request)
+    {
+        return "NOT IMPLEMENTED";
+    }
+
+	/**
+     * Update a bean
+     *      >   first, i have to describe what is going on here.
+     *          The bean system is a slowly changing system. A
+     *          person's bean value could change along the time
+     *          changing. Then we have to change several part but
+     *          not all the data of a bean.
+     *          In this method, you will have to send a bean object
+     *          to tell the backend what to you want to change.
+     *          - you have to set user_id, brand, sale_date to specify
+     *            a bean to change. Here, sale_date is a Date, which
+     *            the DAY of it is ignored.
+     *          - below are some property you can set. When you set
+*                 a property, it means you want to add value on to
+     *            the according properties inside the database.
+     *            - These property can be seen in the Bean.java
+     * @param bean
+     * @return
+     */
+    @RequestMapping(value = "/bean/updateData", method = RequestMethod.PUT)
+    @ResponseBody
+    public String updateBean(@RequestBody Bean bean)
+    {
+        // check the bean
+        if(bean.getBrand() == null) return "fail with brand not set";
+
+        return userService.addDataOnBean(bean);
+    }
+
+
 }

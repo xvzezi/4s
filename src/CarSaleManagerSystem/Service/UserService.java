@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by HFQ on 2016/8/5.
@@ -28,6 +30,9 @@ public class UserService {
 
     @Autowired
     private LevelDAO levelDAO;
+
+    @Autowired
+    private BeanDAO beanDAO;
 
     public void createUser(User user){
         if(userExist(user.getUserID())){
@@ -195,4 +200,55 @@ public class UserService {
       *
       *
       * **/
+
+    /******************************************************Bean System Service****************************************/
+    public List<Bean> getCurrentMonth()
+    {
+        Date date = new Date();
+        return beanDAO.getByDate(date);
+    }
+
+    public List<Bean> getByUserWithDate(int user_id, Date date)
+    {
+        return beanDAO.getByUserIdWithDate(user_id, date);
+    }
+
+    public List<Bean> getByBrandWithDate(String brand, Date date)
+    {
+        return beanDAO.getByBrandWithDate(brand, date);
+    }
+
+    public String createBeanOnUser(int user_id, String brand)
+    {
+        // check if the user exists
+        User user = userDAO.findUserById(user_id);
+        if(user == null)
+        {
+            return "USER NOT EXISTS";
+        }
+        // basic info
+        Bean bean = new Bean();
+        bean.setSale_date(new Date());
+        bean.setUser_id(user_id);
+        bean.setBrand(brand);
+        int result = beanDAO.createBean(bean);
+        if(result == -1)
+        {
+            return "BRAND SETTINGS BAD";
+        }
+        else if(result == -2)
+        {
+            return "BUILD HAS BEEN DONE BEFORE";
+        }
+        else
+        {
+            return "SUCCESS";
+        }
+    }
+
+    public String addDataOnBean(Bean bean)
+    {
+        beanDAO.addDataToBean(bean);
+        return "SUCCESS";
+    }
 }

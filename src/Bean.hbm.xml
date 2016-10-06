@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="CarSaleManagerSystem.Bean.Bean" table="bean">
+        <id name="bean_id" type="java.lang.Integer">
+            <generator class="increment"/>
+        </id>
+        <property name="brand" type="java.lang.String"/>
+        <property name="user_id" type="java.lang.Integer"/>
+        <property name="sale_date" type="java.util.Date"/>
+
+        <property name="opt_whole" type="java.lang.Integer"/>
+        <property name="opt_serve" type="java.lang.Integer"/>
+        <property name="opt_substitute" type="java.lang.Integer"/>
+        <property name="opt_gift" type="java.lang.Integer"/>
+        <property name="opt_insurance" type="java.lang.Integer"/>
+        <property name="opt_fin" type="java.lang.Integer"/>
+        <property name="opt_delay_insur" type="java.lang.Integer"/>
+        <property name="opt_vip" type="java.lang.Integer"/>
+        <property name="opt_lease" type="java.lang.Integer"/>
+
+        <property name="neg_CR" type="java.lang.Integer"/>
+        <property name="neg_man" type="java.lang.Integer"/>
+
+        <property name="sale_achieve" type="java.lang.Integer"/>
+        <property name="profit_achieve" type="java.lang.Integer"/>
+    </class>
+</hibernate-mapping>

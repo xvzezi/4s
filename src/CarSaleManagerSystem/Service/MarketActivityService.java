@@ -55,9 +55,9 @@ public class MarketActivityService
 		{
 			marketActivity.setFact_nature(nature);
 		}
-		if(marketActivity.getFact_trnas() == 0)
+		if(marketActivity.getFact_trans() == 0)
 		{
-			marketActivity.setFact_trnas(trans);
+			marketActivity.setFact_trans(trans);
 		}
 
 		// store it

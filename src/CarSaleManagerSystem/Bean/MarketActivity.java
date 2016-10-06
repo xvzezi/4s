@@ -21,7 +21,7 @@ public class MarketActivity
 	private int plan_trans;
 	private int fact_invite;
 	private int fact_nature;
-	private int fact_trnas;
+	private int fact_trans;
 	private String con_opt;
 	private String con_neg;
 
@@ -165,14 +165,14 @@ public class MarketActivity
 		this.fact_nature = fact_nature;
 	}
 
-	public int getFact_trnas()
+	public int getFact_trans()
 	{
-		return fact_trnas;
+		return fact_trans;
 	}
 
-	public void setFact_trnas(int fact_trnas)
+	public void setFact_trans(int fact_trnas)
 	{
-		this.fact_trnas = fact_trnas;
+		this.fact_trans = fact_trnas;
 	}
 
 	public String getCon_opt()

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class StringToDate
 {
-	static public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd");
+	static public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Nullable
 	static public Date get(String format)

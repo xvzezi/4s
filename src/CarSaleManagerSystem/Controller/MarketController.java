@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -35,7 +35,7 @@ public class MarketController
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView getShowPage()
 	{
-		return new ModelAndView("/Market/activity");
+		return new ModelAndView("Market/activity");
 	}
 
 	/***************************************************Get the activities*********************************************/
@@ -160,7 +160,7 @@ public class MarketController
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete", method = RequestMethod.DELETE)
 	@ResponseBody
 	public String deleteActivity(HttpServletRequest request)
 	{

@@ -21,6 +21,7 @@
         <property name="bean" column="bean" length="64" type="java.lang.Integer"/>
         <property name="birthday" column="birthday" type="java.util.Date"/>
         <property name="valid" column="valid" type="java.lang.String" length="1"/>
+        <property name="salary" column="salary" type="int"/>
         <!--<set name="roleSet" table="user_role">-->
             <!--<key column="user_id"/>-->
             <!--<many-to-many column="role_id" class="CarSaleManagerSystem.Bean.Role"/>-->

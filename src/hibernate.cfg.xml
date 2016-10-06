@@ -41,5 +41,6 @@
                 <mapping resource="CarPlan.hbm.xml"/>
                 <mapping resource="SalesPlan.hbm.xml"/>
                 <mapping resource="MarketActivity.hbm.xml"/>
+                <mapping resource="Bean.hbm.xml"/>
         </session-factory>
 </hibernate-configuration>
