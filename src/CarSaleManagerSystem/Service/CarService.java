@@ -149,6 +149,17 @@ public class CarService {
         return true;
     }
 
+	/**
+	 * 12.10 added
+     */
+    public Car findSoldCarById(String carID){
+        Car car = carDAO.findCarById(carID);
+        if (car != null && car.getValid().equals("N")) {
+            return car;
+        }
+        return null;
+    }
+
     public void createGarage(Garage garage) {
         if (garageExist(garage.getBrand())) {
             return;
