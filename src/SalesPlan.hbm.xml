@@ -63,5 +63,7 @@
 
         <property name="valid" column="valid" type="java.lang.String" length="1"/>
 
+        <property name="storefront_id" column="storefront_id" type="java.lang.Integer"/>
+
     </class>
 </hibernate-mapping>

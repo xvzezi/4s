@@ -24,6 +24,17 @@ public class MarketActivity
 	private int fact_trans;
 	private String con_opt;
 	private String con_neg;
+	private int storefront_id;
+
+	public int getStorefront_id()
+	{
+		return storefront_id;
+	}
+
+	public void setStorefront_id(int storefront_id)
+	{
+		this.storefront_id = storefront_id;
+	}
 
 	public int getId()
 	{

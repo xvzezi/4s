@@ -26,6 +26,9 @@ public class Car {
     private String valid;
     private int planID;
 
+
+    private int storefrontID;
+
     public Car(Car car){
         this.carID = car.carID;
         this.garage = car.garage;
@@ -57,6 +60,16 @@ public class Car {
 
     public void setPlanID(int planID) {
         this.planID = planID;
+    }
+
+    public int getStorefrontID()
+    {
+        return storefrontID;
+    }
+
+    public void setStorefrontID(int storefrontID)
+    {
+        this.storefrontID = storefrontID;
     }
 
     public Date getInGarageTime() {

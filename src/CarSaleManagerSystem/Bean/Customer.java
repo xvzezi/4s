@@ -22,6 +22,17 @@ public class Customer {
     private String source;
     private Date birthday;
     private String valid;
+    private int storefront_id;
+
+    public int getStorefront_id()
+    {
+        return storefront_id;
+    }
+
+    public void setStorefront_id(int storefront_id)
+    {
+        this.storefront_id = storefront_id;
+    }
 
     public String getValid() {
         return valid;

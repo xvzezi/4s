@@ -21,6 +21,7 @@
         <property name="carID" column="vehicle_id" type="java.lang.String"/>
         <property name="customerID" column="customer_id" type="java.lang.Integer"/>
         <property name="salesmanID" column="user_id" type="java.lang.Integer"/>
+        <property name="storefront_id" type="java.lang.Integer"/>
         <!--<set name="giftSet" inverse="true" lazy="false">-->
             <!--<key column="order_id" not-null="true"></key>-->
             <!--<one-to-many class="CarSaleManagerSystem.Bean.Gift"/>-->

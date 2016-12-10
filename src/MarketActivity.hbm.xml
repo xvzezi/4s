@@ -24,5 +24,6 @@
         <property name="fact_trans" type="java.lang.Integer"/>
         <property name="con_opt" type="java.lang.String"/>
         <property name="con_neg" type="java.lang.String"/>
+        <property name="storefront_id" type="java.lang.Integer"/>
     </class>
 </hibernate-mapping>

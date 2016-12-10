@@ -19,6 +19,7 @@
         <property name="valid" column="valid" type="java.lang.String" length="1"/>
         <property name="orderID" column="order_id" type="java.lang.String" length="64"/>
         <property name="giftType" column="type" type="java.lang.String" length="64"/>
+        <property name="storefront_id" type="java.lang.Integer"/>
         <!--<many-to-one name="order" class="CarSaleManagerSystem.Bean.Order" cascade="none"-->
                      <!--outer-join="auto"-->
                      <!--update="true"-->

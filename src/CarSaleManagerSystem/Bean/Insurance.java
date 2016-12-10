@@ -13,8 +13,19 @@ public class Insurance {
     private float discount;
     private float actualGetMoney;
     private String orderID ;
+    private int storefront_id;
 
     private String valid;
+
+    public int getStorefront_id()
+    {
+        return storefront_id;
+    }
+
+    public void setStorefront_id(int storefront_id)
+    {
+        this.storefront_id = storefront_id;
+    }
 
     public int getInsuranceID() {
         return insuranceID;

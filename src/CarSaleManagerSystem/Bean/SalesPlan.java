@@ -64,6 +64,18 @@ public class SalesPlan {
 
     private String valid;
 
+    private int storefront_id;
+
+    public int getStorefront_id()
+    {
+        return storefront_id;
+    }
+
+    public void setStorefront_id(int storefront_id)
+    {
+        this.storefront_id = storefront_id;
+    }
+
     public float getCarPayback() {
         return carPayback;
     }

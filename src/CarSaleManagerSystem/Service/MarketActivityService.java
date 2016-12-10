@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,17 +23,30 @@ public class MarketActivityService
 	public enum Type {ALL, PART}
 
 	// fetch activities
-	public List<MarketActivity> getActivity(Date start, Date end, Type type)
+	public List<MarketActivity> getActivity(Date start, Date end, Type type, int storefront)
 	{
+		List<MarketActivity> marketActivities = null;
 		if(type == Type.ALL)
 		{
-			return dao.getAllMarketActivity();
+			marketActivities = dao.getAllMarketActivity();
 		}
 		else if(type == Type.PART)
 		{
-			return dao.getActivityAfterDate(start, end, 20);
+			marketActivities = dao.getActivityAfterDate(start, end, 20);
 		}
-		return null;
+		if(marketActivities == null)
+		{
+			return null;
+		}
+		List<MarketActivity> result = new ArrayList<>();
+		for(MarketActivity marketActivity: marketActivities)
+		{
+			if(marketActivity.getStorefront_id() == storefront)
+			{
+				result.add(marketActivity);
+			}
+		}
+		return result;
 	}
 
 	// update activity

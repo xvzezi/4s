@@ -27,9 +27,21 @@ public class User {
 
     private int salary;
 
+    private int storefrontID;
+
 //    protected Set<Role> roleSet = new HashSet<Role>();
 //    protected Set<Order>orderSet = new HashSet<Order>();
 
+
+    public int getStorefrontID()
+    {
+        return storefrontID;
+    }
+
+    public void setStorefrontID(int storefrontID)
+    {
+        this.storefrontID = storefrontID;
+    }
 
     public String getApartment() {
         return apartment;

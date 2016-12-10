@@ -38,8 +38,17 @@ public class InsuranceService {
         insuranceDAO.createInsurance(insurance);
     }
 
-    public List<Insurance> getAllInsurance(){
-        return insuranceDAO.getAllInsurances();
+    public List<Insurance> getAllInsurance(int storefront){
+        List<Insurance> insurances = insuranceDAO.getAllInsurances();
+        List<Insurance> result = new ArrayList<>();
+        for(Insurance insurance:insurances)
+        {
+            if(insurance.getStorefront_id() == storefront)
+            {
+                result.add(insurance);
+            }
+        }
+        return result;
     }
 
     public void removeInsurance(Insurance insurance){
@@ -116,8 +125,8 @@ public class InsuranceService {
        return result;
     }
 
-    public List<Insurance> findInsuranceByOrderId(String orderID){
-        List<Insurance> insuranceList = getAllInsurance();
+    public List<Insurance> findInsuranceByOrderId(String orderID, int storefront){
+        List<Insurance> insuranceList = getAllInsurance(storefront);
         List<Insurance> result = new ArrayList<>();
 
         for(Insurance insurance : insuranceList){

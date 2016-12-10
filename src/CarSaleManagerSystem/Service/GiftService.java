@@ -6,6 +6,7 @@ import CarSaleManagerSystem.Bean.GiftType;
 import CarSaleManagerSystem.DAO.GiftBrandDAO;
 import CarSaleManagerSystem.DAO.GiftDAO;
 import CarSaleManagerSystem.DAO.GiftTypeDAO;
+import com.mongodb.gridfs.GridFS;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,17 @@ public class GiftService {
         giftDAO.createGift(gift);
     }
 
-    public List<Gift> getAllGifts(){
-        return giftDAO.getAllGifts();
+    public List<Gift> getAllGifts(int storefront){
+        List<Gift> gifts = giftDAO.getAllGifts();
+        List<Gift> result = new ArrayList<>();
+        for(Gift gift:gifts)
+        {
+            if(gift.getStorefront_id() == storefront)
+            {
+                result.add(gift);
+            }
+        }
+        return result;
     }
 
     public void removeGift(Gift gift){
@@ -105,8 +115,8 @@ public class GiftService {
 
 
 
-    public List<Gift> findGiftByOrderId(String orderId){
-        List<Gift> gifts = getAllGifts();
+    public List<Gift> findGiftByOrderId(String orderId, int storefront){
+        List<Gift> gifts = getAllGifts(storefront);
         if(gifts == null){
             return null;
         }

@@ -24,8 +24,19 @@ public class Order {
     private Date actual_submit_car_time;
     private String finish_status; // is finished?
     private String remark;
+    private int storefront_id;
 //    private String valid;
 
+
+    public int getStorefront_id()
+    {
+        return storefront_id;
+    }
+
+    public void setStorefront_id(int storefront_id)
+    {
+        this.storefront_id = storefront_id;
+    }
 
     public Date getPredicted_submit_car_time() {
         return predicted_submit_car_time;

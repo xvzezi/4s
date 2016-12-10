@@ -97,8 +97,17 @@ public class CarService {
         carDAO.createCar(car);
     }
 
-    public List<Car> getAllCars() {
-        return carDAO.getAllCars();
+    public List<Car> getAllCars(int storefront_id) {
+        List<Car> available = carDAO.getAllCars();
+        List<Car> result = new ArrayList<>();
+        for(Car car:available)
+        {
+            if(car.getStorefrontID() == storefront_id)
+            {
+                result.add(car);
+            }
+        }
+        return result;
     }
 
     public void removeCar(Car car) {
@@ -458,16 +467,13 @@ public class CarService {
 
         return result;
     }
-    public List<Car> findCarByCarType(CarTypeID carTypeID) {
-        List<Car> result = getAllCars();
+    public List<Car> findCarByCarType(CarTypeID carTypeID, int storefront_id) {
+        List<Car> result = getAllCars(storefront_id);
         result = CarGarageBrandFilter(result, carTypeID.getGarage());
         result = CarBrandFilter(result, carTypeID.getBrand());
         result = CarColorFilter(result, carTypeID.getColor());
         result = CarSFXFilter(result, carTypeID.getSfx());
-        if (result != null && result.size() > 0) {
-            return result;
-        }
-        return null;
+        return result;
     }
 
     public int getCarAge(String carID) {
@@ -495,8 +501,8 @@ public class CarService {
         return Integer.parseInt(String.valueOf(between_days));
     }
 
-    public Map<Car, Integer> getCarAgeList() {
-        List<Car> cars = getAllCars();
+    public Map<Car, Integer> getCarAgeList(int storefront_id) {
+        List<Car> cars = getAllCars(storefront_id);
         if (cars == null) {
             return null;
         }
@@ -512,8 +518,8 @@ public class CarService {
     }
 
 
-    public Map<Car, Integer> getCarAgeListByCarType(CarTypeID carTypeID) {
-        List<Car> cars = findCarByCarType(carTypeID);
+    public Map<Car, Integer> getCarAgeListByCarType(CarTypeID carTypeID, int storefront_id) {
+        List<Car> cars = findCarByCarType(carTypeID, storefront_id);
         if (cars == null) {
             return null;
         }
@@ -526,9 +532,8 @@ public class CarService {
         return result;
     }
 
-    public Map<Car, CarPlan> getCarBookedList(){
-        List<Car> carList = getAllCars();
-
+    public Map<Car, CarPlan> getCarBookedList(int storefront_id){
+        List<Car> carList = getAllCars(storefront_id);
         List<Car> cars = carStatusFilter(carList, "订车");
 
         if(cars == null){
@@ -546,8 +551,8 @@ public class CarService {
         return result;
     }
 
-    public Map<Car, CarPlan> getCarOnWayList(){
-        List<Car> carList = carDAO.getAllCars();
+    public Map<Car, CarPlan> getCarOnWayList(int storefront){
+        List<Car> carList = getAllCars(storefront);
 
         List<Car> cars = carStatusFilter(carList,"在途");
 
@@ -566,8 +571,8 @@ public class CarService {
         return result;
     }
 
-    public Map<Car, CarPlan> getCarInGarage(){
-        List<Car> carList = carDAO.getAllCars();
+    public Map<Car, CarPlan> getCarInGarage(int storefront){
+        List<Car> carList = getAllCars(storefront);
 
         List<Car> cars = carStatusFilter(carList,"在库");
 
@@ -588,8 +593,8 @@ public class CarService {
 
     }
 
-    public Map<Car, CarPlan> getCarOutOfGarage(){
-        List<Car> carList = carDAO.getAllCars();
+    public Map<Car, CarPlan> getCarOutOfGarage(int storefront){
+        List<Car> carList = getAllCars(storefront);
 
         List<Car> cars = carStatusFilter(carList,"出库");
 
@@ -609,8 +614,8 @@ public class CarService {
         return result;
     }
 
-    public Map<Car, CarPlan> getCarByStatus(String status){
-        List<Car> carList = carDAO.getAllCars();
+    public Map<Car, CarPlan> getCarByStatus(String status, int storefront){
+        List<Car> carList = getAllCars(storefront);
 
         List<Car> cars = carStatusFilter(carList,status);
 
@@ -1274,8 +1279,8 @@ public class CarService {
      * @param date 本月
      * @return 这月买入的汽车
      */
-    public List<Car> getCarPurchasedByMonth(Date date){
-        List<Car> carList = carDAO.getAllCars();
+    public List<Car> getCarPurchasedByMonth(Date date, int storefront){
+        List<Car> carList = getAllCars(storefront);
         carList = carStatusFilter(carList, "在库");
         List<Car> result = new ArrayList<>();
 
@@ -1293,8 +1298,8 @@ public class CarService {
      * @param date 某一天
      * @return 这天买入的汽车
      */
-    public List<Car> getCarPurchasedByDay(Date date){
-        List<Car> carList = getCarPurchasedByMonth(date);
+    public List<Car> getCarPurchasedByDay(Date date, int storefront){
+        List<Car> carList = getCarPurchasedByMonth(date, storefront);
         List<Car> result = new ArrayList<>();
 
         for(Car car : carList){
@@ -1344,7 +1349,7 @@ public class CarService {
      * @param date 某一天
      * @return 这天买入的汽车数量及支出
      */
-    public Map<Integer, Float> carPurchasedPerDay(String date){
+    public Map<Integer, Float> carPurchasedPerDay(String date, int storefront){
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date month;
@@ -1355,7 +1360,7 @@ public class CarService {
 
             for(int i = 0; i < dayOfMonth(month); i ++){
                 day = new Date(month.getYear(),month.getMonth(), i+1);
-                cars = getCarPurchasedByDay(day);
+                cars = getCarPurchasedByDay(day, storefront);
                 float money = 0;
                 for(int j =0; j< cars.size(); j++){
                     money += cars.get(i).getCost();

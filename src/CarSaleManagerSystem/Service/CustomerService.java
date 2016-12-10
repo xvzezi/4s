@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,18 @@ public class CustomerService {
 
     public void createCustomer(Customer customer){ customerDAO.createCustomer(customer);}
 
-    public List<Customer> getAllCustomer(){ return customerDAO.getAllCustomer();}
+    public List<Customer> getAllCustomer(int storefront){
+        List<Customer> customers = customerDAO.getAllCustomer();
+        List<Customer> result = new ArrayList<>();
+        for(Customer customer:customers)
+        {
+            if(customer.getStorefront_id() == storefront)
+            {
+                result.add(customer);
+            }
+        }
+        return result;
+    }
 
     public void removeCustomer(Customer customer){customerDAO.removeCustomer(customer);}
 

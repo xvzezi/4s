@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +48,17 @@ public class UserService {
         userDAO.createUser(user);
     }
 
-    public List<User> getAllUsers(){
-        return userDAO.getAllUsers();
+    public List<User> getAllUsers(int storefront){
+        List<User> users = userDAO.getAllUsers();
+        List<User> result = new ArrayList<>();
+        for(User user:users)
+        {
+            if(user.getStorefrontID() == storefront)
+            {
+                result.add(user);
+            }
+        }
+        return result;
     }
 
     public void removeUser(User user){

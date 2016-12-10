@@ -8,6 +8,7 @@ import CarSaleManagerSystem.DAO.AdditionalProductDAO;
 import CarSaleManagerSystem.DAO.CarDAO;
 import CarSaleManagerSystem.DAO.CustomerDAO;
 import CarSaleManagerSystem.DAO.OrderDAO;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,8 +50,17 @@ public class OrderService {
         orderDAO.createOrder(order);
     }
 
-    public List<Order> getAllOrders(){
-        return orderDAO.getAllOrders();
+    public List<Order> getAllOrders(int storefront){
+        List<Order> orders = orderDAO.getAllOrders();
+        List<Order> result = new ArrayList<>();
+        for(Order order:orders)
+        {
+            if(order.getStorefront_id() == storefront)
+            {
+                result.add(order);
+            }
+        }
+        return result;
     }
 
     public void removeOrder(Order order){

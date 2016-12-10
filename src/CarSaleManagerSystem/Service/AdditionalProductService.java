@@ -29,12 +29,14 @@ public class AdditionalProductService {
     /*
     *additionalProduct Service
     */
-    public boolean additionalProductExist(int additionalProductId){
+    public boolean additionalProductExist(int additionalProductId, int storefront_id){
         AdditionalProduct additionalProduct = additionalProductDAO.findAdditionalProductById(additionalProductId);
 
         if(additionalProduct == null){
             return false;
         }else if(additionalProduct.getValid().equals("N")){
+            return false;
+        }else if(additionalProduct.getStorefront_id() != storefront_id) {
             return false;
         }
         return true;
@@ -42,7 +44,7 @@ public class AdditionalProductService {
 
 
     public void createAdditionalProduct(AdditionalProduct additionalProduct){
-        if(additionalProductExist(additionalProduct.getAdditionalProductID())){
+        if(additionalProductExist(additionalProduct.getAdditionalProductID(), additionalProduct.getStorefront_id())){
             return;
         }
         if(additionalProductDAO.findAdditionalProductById(additionalProduct.getAdditionalProductID()) != null){
@@ -55,12 +57,21 @@ public class AdditionalProductService {
     }
 
 
-    public List<AdditionalProduct> getAllAdditionalProducts() {
-        return additionalProductDAO.getAllAdditionalProduct();
+    public List<AdditionalProduct> getAllAdditionalProducts(int storefront_id) {
+        List<AdditionalProduct> additionalProducts = additionalProductDAO.getAllAdditionalProduct();
+        List<AdditionalProduct> available = new ArrayList<>();
+        for(AdditionalProduct additionalProduct:additionalProducts)
+        {
+            if(additionalProduct.getStorefront_id() == storefront_id)
+            {
+                available.add(additionalProduct);
+            }
+        }
+        return available;
     }
 
     public void removeAdditionalProduct(AdditionalProduct additionalProduct){
-        if(additionalProductExist(additionalProduct.getAdditionalProductID())){
+        if(additionalProductExist(additionalProduct.getAdditionalProductID(), additionalProduct.getStorefront_id())){
             additionalProduct.setValid("N");
             additionalProductDAO.updateAdditionalProduct(additionalProduct);
         }
@@ -70,13 +81,27 @@ public class AdditionalProductService {
         additionalProductDAO.updateAdditionalProduct(additionalProduct);
     }
 
-    public AdditionalProduct findAdditionalProductById(int id){
-        return additionalProductDAO.findAdditionalProductById(id);
+    public AdditionalProduct findAdditionalProductById(int id, int storefront_id){
+        AdditionalProduct additionalProduct = additionalProductDAO.findAdditionalProductById(id);
+        if(additionalProduct != null && additionalProduct.getStorefront_id() != storefront_id)
+        {
+            return null;
+        }
+        return additionalProduct;
     }
 
 
-    public List<AdditionalProduct> additionalProductTypeFilter(List<AdditionalProduct> additionalProducts, String type){
-        return additionalProductDAO.additionalProductTypeFilter(additionalProducts,type);
+    public List<AdditionalProduct> additionalProductTypeFilter(List<AdditionalProduct> additionalProducts, String type, int storefront_id){
+        List<AdditionalProduct> additionalProductList = additionalProductDAO.additionalProductTypeFilter(additionalProducts,type);
+        List<AdditionalProduct> available = new ArrayList<>();
+        for(AdditionalProduct additionalProduct:additionalProductList)
+        {
+            if(additionalProduct.getStorefront_id() == storefront_id)
+            {
+                available.add(additionalProduct);
+            }
+        }
+        return available;
     }
 
 
@@ -118,8 +143,8 @@ public class AdditionalProductService {
     }
 
 
-    public List<AdditionalProduct> findAdditionalProductByOrderId(String orderId){
-        List<AdditionalProduct> additionalProducts = getAllAdditionalProducts();
+    public List<AdditionalProduct> findAdditionalProductByOrderId(String orderId, int storefront_id){
+        List<AdditionalProduct> additionalProducts = getAllAdditionalProducts(storefront_id);
 
         if(additionalProducts == null){
             return null;

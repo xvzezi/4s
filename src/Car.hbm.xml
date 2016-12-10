@@ -36,5 +36,6 @@
         <!--</many-to-one>-->
         <!--<many-to-one name="stockStatus" class="CarSaleManagerSystem.Bean.StockStatus" outer-join="auto" column="status" update="true" insert="true" not-null="true">-->
         <!--</many-to-one>-->
+        <property name="storefrontID" column="storefront_id" type="java.lang.Integer"/>
     </class>
 </hibernate-mapping>
